@@ -14,7 +14,7 @@ Arena::Arena(int l, int w, Prey* prey, Predator* predator) : prey(prey), predato
     view_width = width * stretch_w + shift_w;
 
     // Выделение памяти под массив field размером view_length x view_width
-    field = new char* [view_length]();
+    field = new char* [view_length];
 
     for (int i = 0; i < view_length; i++) {
 
@@ -74,30 +74,31 @@ Arena::Arena(int l, int w, Prey* prey, Predator* predator) : prey(prey), predato
 
 void Arena::clearStep() {
     // Удаление жертвы
-    int preyX = (prey->getLocation().getX() * 2) + 2;
-    int preyY = prey->getLocation().getY() + 2;
+    int preyX = (prey->getLocation().getX() * 2) + 4;
+    int preyY = prey->getLocation().getY() + 3;
 
     field[view_length - preyY][preyX] = ' ';
     field[view_length - preyY][preyX - 1] = ' ';
 
     // Удаление хищника
-    int predX = (predator->getLocation().getX() * 2) + 2;
-    int predY = predator->getLocation().getY() + 2;
+    int predX = (predator->getLocation().getX() * 2) + 4;
+    int predY = predator->getLocation().getY() + 3;
 
     field[view_length - predY][predX] = ' ';
     field[view_length - predY][predX - 1] = ' ';
 }
 
+//TODO: скорректирвовать границы ()
 bool Arena::checkOverRun() {
-    int preyX = (prey->getLocation().getX() * 2) + 2;
-    int preyY = prey->getLocation().getY() + 2;
+    int preyX = prey->getLocation().getX();
+    int preyY = prey->getLocation().getY();
 
-    if (preyX > width || preyX < 1 || preyY > length || preyY < 1) return true;
+    if (preyX > width-1 || preyX < 0 || preyY > length-1 || preyY < 0) return true;
 
-    int predX = (predator->getLocation().getX() * 2) + 2;
-    int predY = predator->getLocation().getY() + 2;
+    int predX = predator->getLocation().getX();
+    int predY = predator->getLocation().getY();
 
-    if (predX > width || predX < 1 || predY > length || predY < 1) return true;
+    if (predX > width-1 || predX < 0 || predY > length-1 || predY < 0) return true;
 
     return false;
 }
@@ -116,15 +117,15 @@ Arena::~Arena() {
 std::ostream& operator<<(std::ostream& out, const Arena& a) {
 
     // Размещение жертвы
-    int preyX = (a.prey->getLocation().getX() * 2) + 2;
-    int preyY = a.prey->getLocation().getY() + 2;
+    int preyX = (a.prey->getLocation().getX() * 2) + 4;
+    int preyY = a.prey->getLocation().getY() + 3;
 
     a.field[a.view_length - preyY][preyX] = ')';
     a.field[a.view_length - preyY][preyX - 1] = '(';
 
     // Размещение хищника
-    int predX = (a.predator->getLocation().getX() * 2) + 2;
-    int predY = a.predator->getLocation().getY() + 2;
+    int predX = (a.predator->getLocation().getX() * 2) + 4;
+    int predY = a.predator->getLocation().getY() + 3;
 
     a.field[a.view_length - predY][predX] = '*';
     a.field[a.view_length - predY][predX - 1] = '*';
