@@ -72,17 +72,17 @@ Arena::Arena(int l, int w, Prey* prey, Predator* predator) : prey(prey), predato
     }
 }
 
-void Arena::clearStep() {
+void Arena::clearStep(Point2D pastPreyPos, Point2D pastPredatorPos) {
     // Удаление жертвы
-    int preyX = (prey->getLocation().getX() * 2) + 4;
-    int preyY = prey->getLocation().getY() + 3;
+    int preyX = (pastPreyPos.getX() * 2) + 4;
+    int preyY = pastPreyPos.getY() + 3;
 
     field[view_length - preyY][preyX] = ' ';
     field[view_length - preyY][preyX - 1] = ' ';
 
     // Удаление хищника
-    int predX = (predator->getLocation().getX() * 2) + 4;
-    int predY = predator->getLocation().getY() + 3;
+    int predX = (pastPredatorPos.getX() * 2) + 4;
+    int predY = pastPredatorPos.getY() + 3;
 
     field[view_length - predY][predX] = ' ';
     field[view_length - predY][predX - 1] = ' ';
@@ -135,7 +135,7 @@ std::ostream& operator<<(std::ostream& out, const Arena& a) {
         for (int j = 0; j < a.view_width; j++) {
             std::cout << a.field[i][j];
         }
-        std::cout << "\n";
+        std::cout << std::endl;
     }
     return out;
 }

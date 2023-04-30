@@ -1,17 +1,18 @@
-#include "Characters.h"
+п»ї#include "Characters.h"
 
 
 using namespace std;
 
 Character::Character(const std::string& name, const Point2D& location, bool npcFlag)
-    : name(name), location(location), npc(npcFlag) {   }
+    : name(name), location(location), pastLocation(location), npc(npcFlag) {   }
 
 void Character::moveTo(Point2D point) {
+    pastLocation = location;
     location = point;
 }
 
-//0 - вверх 1 - вправо 2 - вниз 3 - влево 4 - вверх-влево 
-//5 - вверх-вправо 6 - вниз-вправо 7 - вниз-влево
+//0 - РІРІРµСЂС… 1 - РІРїСЂР°РІРѕ 2 - РІРЅРёР· 3 - РІР»РµРІРѕ 4 - РІРІРµСЂС…-РІР»РµРІРѕ 
+//5 - РІРІРµСЂС…-РІРїСЂР°РІРѕ 6 - РІРЅРёР·-РІРїСЂР°РІРѕ 7 - РІРЅРёР·-РІР»РµРІРѕ
 void Character::moveTo(int direction, int steps) {
 
     int deltaX(0), deltaY(0);
@@ -50,11 +51,16 @@ void Character::moveTo(int direction, int steps) {
         break;
     }
 
+    pastLocation = location;
     location.setPoint(location.getX() + deltaX * steps, location.getY() + deltaY * steps);
 }
 
 Point2D Character::getLocation() {
     return location;
+}
+
+Point2D Character::getPastLocation() {
+    return pastLocation;
 }
 
 bool Character::isNPC() { return npc; }
@@ -71,15 +77,15 @@ int Prey::askDirection() {
     do {
 
         int direction(0);
-        cout << "Куда идти? \n";
-        cout << "0 - вверх, 1 - вправо, 2 - вниз, 3 - влево, \n";
-        cout << "4 - вверх - влево, 5 - вверх-вправо, 6 - вниз-вправо, 7 - вниз-влево \n";
+        cout << "\nРљСѓРґР° СѓР±РµРіР°РµРј?\n";
+        cout << "0 - РІРІРµСЂС…, 1 - РІРїСЂР°РІРѕ, 2 - РІРЅРёР·, 3 - РІР»РµРІРѕ,\n";
+        cout << "4 - РІРІРµСЂС…-РІР»РµРІРѕ, 5 - РІРІРµСЂС…-РІРїСЂР°РІРѕ, 6 - РІРЅРёР·-РІРїСЂР°РІРѕ, 7 - РІРЅРёР·-РІР»РµРІРѕ\n";
         cin >> direction;
 
         if (direction <= 7 && direction >= 0) {
             return direction;
         }
-        else cout << "Некорректный ввод, попробуй ещё раз \n" << endl;
+        else cout << "РќРµРєРѕСЂСЂРµРєС‚РЅС‹Р№ РІРІРѕРґ, РїРѕРїСЂРѕР±СѓР№ РµС‰С‘ СЂР°Р· \n";
 
     } while (true);
 

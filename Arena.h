@@ -17,7 +17,7 @@ public:
 
     Arena(int l, int w, Prey* prey, Predator* predator);
 
-    void clearStep();
+    void clearStep(Point2D pastPreyPos, Point2D pastPredatorPos);
     bool checkOverRun();
     
     ~Arena();

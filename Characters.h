@@ -7,9 +7,10 @@ class Character {
 
 private:
 
-    std::string name;        // имя персонажа
-    Point2D location;   // текущее положение персонажа
-    bool npc;           // признак NPC
+    std::string name;       // имя персонажа
+    Point2D location;       // текущее положение персонажа
+    Point2D pastLocation;   // предыдущее положение персонажа    
+    bool npc;               // признак NPC
 
 public:
 
@@ -22,6 +23,7 @@ public:
     void moveTo(int direction, int steps);
 
     Point2D getLocation();
+    Point2D getPastLocation();
 
     bool isNPC();
 
@@ -76,8 +78,8 @@ public:
         do {
 
             int direction(0);
-            std::cout << "Куда идти?\n";
-            std::cout << "0 - вверх, 1 - вправо, 2 - вниз, 3 - влево,\n";
+            std::cout << "Куда идти? \n";
+            std::cout << "0 - вверх, 1 - вправо, 2 - вниз, 3 - влево\n";
             std::cin >> direction;
 
             if (direction <= 3 && direction >= 0) {

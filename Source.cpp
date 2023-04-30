@@ -16,33 +16,25 @@ int main() {
 
     srand(time(NULL));
 
-    Prey prey("prey", Point2D(5, 20), true);
+    Prey prey("prey", Point2D(5, 20), false);
     Predator predator("predator", Point2D(3, 10), true);
 
     Arena arena(30, 30, &prey, &predator);
 
-    cout << arena;
-
     for (int i = 0; i <= 40; i++) {
-        arena.clearStep();
-
-        Point2D prevPreyLocation(prey.getLocation());
-        Point2D prevPredLocation(predator.getLocation());
+        cout << arena;
 
         prey.autoMove();
-        predator.autoMove();
-
+        predator.autoMove();        
+        
         if (arena.checkOverRun())
         {
-            prey.moveTo(prevPreyLocation);
-            predator.moveTo(prevPredLocation);
+            prey.moveTo(prey.getPastLocation());
+            predator.moveTo(predator.getPastLocation());
         }
 
-        
-        cout << arena;
-         
-        system("timeout /t 1");
-        
+        arena.clearStep(prey.getPastLocation(), predator.getPastLocation());        
+            
         system("cls");
     }
     
