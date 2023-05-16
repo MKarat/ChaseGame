@@ -146,6 +146,7 @@
     <ClCompile Include="Source.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ASCII_Pics.h" />
     <ClInclude Include="Characters.h" />
     <ClInclude Include="Arena.h" />
     <ClInclude Include="Point2D.h" />

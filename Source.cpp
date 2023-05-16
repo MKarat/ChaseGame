@@ -4,9 +4,11 @@
 #include <fstream>
 #include <time.h>
 #include <cstdlib>
+#include <windows.h>
 
 #include "Characters.h"
 #include "Arena.h"
+#include "ASCII_Pics.h"
 
 using namespace std;
 
@@ -16,10 +18,23 @@ int main() {
 
     srand(time(NULL));
 
+
+    for (int i = 0; i <= 4; i++) {
+
+        std::cout << ascii_pics::tigerPic;
+        Sleep(100);
+        system("cls");
+        Sleep(100);
+    }
+    
+    std::cout << ascii_pics::logo;
+    Sleep(500);
+    
+    
     Prey prey("prey", Point2D(5, 20), false);
     Predator predator("predator", Point2D(3, 10), true);
 
-    Arena arena(30, 30, &prey, &predator);
+    Arena arena(40, 40, &prey, &predator);
 
     for (int i = 0; i <= 40; i++) {
         cout << arena;
