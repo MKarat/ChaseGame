@@ -18,7 +18,7 @@ int main() {
 
     srand(time(NULL));
 
-
+    // intro animation 
     for (int i = 0; i <= 4; i++) {
 
         std::cout << ascii_pics::tigerPic;
@@ -26,13 +26,29 @@ int main() {
         system("cls");
         Sleep(100);
     }
-    
     std::cout << ascii_pics::logo;
     Sleep(500);
+    system("cls");
     
-    
-    Prey prey("prey", Point2D(5, 20), false);
-    Predator predator("predator", Point2D(3, 10), true);
+    //side selection
+    int side(0);
+    do {
+       
+        cout << "\nВыбери сторону?\n";
+        cout << "1 - хищник, 2 - жертва\n";
+        cin >> side;
+
+        if (side <= 2 && side >= 1) {
+            break;
+        }
+        else cout << "Некорректный ввод, попробуй ещё раз \n";
+
+    } while (true);
+
+
+
+    Prey prey("prey", Point2D(5, 20), (side == 2));
+    Predator predator("predator", Point2D(3, 10), (side == 1));
 
     Arena arena(40, 40, &prey, &predator);
 
